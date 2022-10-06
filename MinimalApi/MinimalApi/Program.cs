@@ -3,8 +3,6 @@ using MinimalApi;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<TodoDbContext>(opt => opt.UseInMemoryDatabase("TodoList"));
@@ -20,6 +18,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+#region TODO_CRUD
 
 app.MapPost("/todoItems", async (Todo todo, TodoDbContext dbContext)
     =>{
@@ -61,5 +61,6 @@ app.MapDelete("/todoItems/{id}", async (int id,TodoDbContext dbContext)
         }
         return Results.NotFound();  
     });
+#endregion
 
 app.Run();
